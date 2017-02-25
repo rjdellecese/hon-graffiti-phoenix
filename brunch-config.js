@@ -64,6 +64,7 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    styles: {"spectre.css": ["dist/spectre.min.css"]}
   }
 };
