@@ -1,7 +1,7 @@
 language: elixir
 elixir:
   - 1.4.2
-before_script: dialyzer.plt
+before_script: mix dialyzer.plt
 script:
   - mix test
   - mix dialyzer --halt-exit-status
