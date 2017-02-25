@@ -9,6 +9,7 @@
 
     <title>HoN Graffiti</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="dist/spectre.min.css" />
   </head>
 
   <body>
