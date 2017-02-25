@@ -1,0 +1,16 @@
+/* This file is for your main application css. */
+@fontface {
+  font-family: 'Friz Quadrata';
+  src: url('friz-quadrata.svg#Friz Quadrata') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+.about-flex-container {
+  display: flex;
+  box-shadow: inset 1px 1px 7px rgba(0,0,0,0.4);
+  justify-content: space-between;
+  font-family: 'PT Sans', sans-serif;
+}

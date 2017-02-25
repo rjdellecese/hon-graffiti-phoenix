@@ -18,6 +18,7 @@ defmodule HonGraffitiPhoenix.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
+    resources "/", QuoteController
   end
 
   # Other scopes may use custom stacks.
