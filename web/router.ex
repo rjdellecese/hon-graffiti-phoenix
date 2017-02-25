@@ -16,8 +16,7 @@ defmodule HonGraffitiPhoenix.Router do
   scope "/", HonGraffitiPhoenix do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    resources "/quotes", QuoteController
+    resources "/", QuoteController
   end
 
   # Other scopes may use custom stacks.
