@@ -4,5 +4,4 @@ elixir:
 script:
   - mix credo
   - mix test
-  - MIX_ENV=prod mix do compile, archive.build, archive.install --force
-  - MIX_ENV=prod mix dialyzer --halt-exit-status
+  - mix do dialyzer.plt, dialyzer
