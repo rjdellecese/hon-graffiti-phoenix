@@ -1,7 +1,7 @@
 language: elixir
 elixir:
   - 1.4.2
-before_script: mix dialyzer.plt
+before_script: mix dialyzer.plt # Slow! Maybe at some point use a pre-built PLT.
 script:
   - mix test
   - mix dialyzer --halt-exit-status
