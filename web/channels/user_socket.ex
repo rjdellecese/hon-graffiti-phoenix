@@ -19,19 +19,24 @@ defmodule HonGraffitiPhoenix.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
+  @lint {Credo.Check.Readability.Specs, false}
   def connect(_params, socket) do
     {:ok, socket}
   end
 
-  # Socket id's are topics that allow you to identify all sockets for a given user:
+  # Socket id's are topics that allow you to identify all sockets for a given
+  # user:
   #
   #     def id(socket), do: "users_socket:#{socket.assigns.user_id}"
   #
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     HonGraffitiPhoenix.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
+  #     HonGraffitiPhoenix.Endpoint.broadcast(
+  #       "users_socket:#{user.id}", "disconnect", %{}
+  #     )
   #
   # Returning `nil` makes this socket anonymous.
+  @lint {Credo.Check.Readability.Specs, false}
   def id(_socket), do: nil
 end
