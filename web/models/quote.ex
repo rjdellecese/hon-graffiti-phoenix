@@ -1,4 +1,7 @@
 defmodule HonGraffitiPhoenix.Quote do
+  @moduledoc """
+  A quote is a single line of HoN markup. The :raw field is the raw HoN markup.
+  """
   use HonGraffitiPhoenix.Web, :model
 
   schema "quotes" do
@@ -10,6 +13,7 @@ defmodule HonGraffitiPhoenix.Quote do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  @lint {Credo.Check.Readability.Specs, false}
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:raw])
