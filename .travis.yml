@@ -3,5 +3,6 @@ elixir:
   - 1.4.2
 script:
   - mix credo
-  - mix dialyzer.plt, dialyzer --halt-exit-status
   - mix test
+  - MIX_ENV=prod mix do compile --warnings-as-errors, archive.build, archive.install --force
+  - MIX_ENV=prod mix dialyzer --halt-exit-status
