@@ -18,5 +18,7 @@ defmodule HonGraffitiPhoenix.Quote do
     struct
     |> cast(params, [:raw])
     |> validate_required([:raw])
+    |> validate_length(:raw, min: 3)
+    |> validate_length(:raw, max: 140)
   end
 end
