@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :hon_graffiti_phoenix, HonGraffitiPhoenix.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
+  url: [scheme: "https", host: "hon-graffiti-phoenix.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
