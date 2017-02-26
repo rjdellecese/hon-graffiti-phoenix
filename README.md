@@ -1,4 +1,10 @@
-# HonGraffitiPhoenix
+[![Build Status](https://travis-ci.org/rjdellecese/hon_graffiti_phoenix.svg?branch=master)](https://travis-ci.org/rjdellecese/hon_graffiti_phoenix)
+
+# HoN Graffiti Phoenix
+
+An app for people who like HoN and functional programming.
+
+## Getting Started
 
 To start your Phoenix app:
 
