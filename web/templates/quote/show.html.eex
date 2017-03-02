@@ -7,18 +7,10 @@
     <%= @quote.raw %>
     <br>
 
-    <strong>Markdown:</strong>
-    <%= get_markdown(@quote.raw) %>
-    <br>
-
-    <strong>Without Markdown:</strong>
-    <%= get_without_markdown(@quote.raw) %>
-    <br>
-
     <strong>Parsed</strong>
     <table class="table">
       <tbody>
-      <%= for style <- parse(@quote.raw) do %>
+      <%= for style <- MarkdownParser.parse(@quote.raw) do %>
         <tr>
           <td><%= Map.fetch!(style, :color) %></td>
           <td><%= Map.fetch!(style, :body) %></td>
