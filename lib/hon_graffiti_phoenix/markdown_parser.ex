@@ -3,7 +3,8 @@ defmodule HonGraffitiPhoenix.MarkdownParser do
 
   # This captures(named style) on a caret followed by EITHER
   # one of the characters, or 3 digits
-  @markdown_regex ~r/\^((?<style>(\d{3})|[wrbymnpkotvg*]))/i
+  @hon_markup_capture ~r/\^((?<style>(\d{3})|[wrbymnpkotvg*]))/i
+  @hon_markup_splitter ~r/\^.*?(?=\^)/
 
 #  Public functions
   def parse(), do: []
@@ -25,16 +26,16 @@ defmodule HonGraffitiPhoenix.MarkdownParser do
   end
 
   def split_on_markdown(string) do
-    Regex.split(~r/\^.*?(?=\^)/ , string, trim: true, include_captures: true)
+    Regex.split(@hon_markup_splitter , string, trim: true, include_captures: true)
   end
 
   def get_markdown(string) do
-    style_map = Regex.named_captures(@markdown_regex, string)
+    style_map = Regex.named_captures(@hon_markup_capture, string)
     if (style_map != nil), do: style_map["style"], else: ""
   end
 
   def get_without_markdown(string) do
-    Regex.replace(@markdown_regex, string, "")
+    Regex.replace(@hon_markup_capture, string, "")
   end
 
 # Interpretting the markdown codes
@@ -65,7 +66,7 @@ defmodule HonGraffitiPhoenix.MarkdownParser do
       "t" -> "teal"
       "v" -> "grey"
       "g" -> "green"
-      _   -> "didn't match anything"
+      ""  -> "black"
     end
   end
 
