@@ -20,6 +20,6 @@ defmodule HonGraffitiPhoenix.Router do
   scope "/api", HonGraffitiPhoenix do
     pipe_through :api
 
-    resources "/quotes", QuoteController, only: [:index, :show]
+    resources "/quotes", QuoteController, only: [:index, :show, :create]
   end
 end

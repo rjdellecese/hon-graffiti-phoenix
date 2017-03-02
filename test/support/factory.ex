@@ -6,4 +6,8 @@ defmodule HonGraffitiPhoenix.Factory do
       raw: "^rI am red. ^095I am sea green. ^*I am the normal color."
     }
   end
+
+  def invalid_quote_factory do
+    %HonGraffitiPhoenix.Quote{raw: "^r"}
+  end
 end
