@@ -1,6 +1,6 @@
 defmodule HonGraffitiPhoenix.MarkdownParserTest do
   use HonGraffitiPhoenix.ConnCase
-  alias HonGraffitiPhoenix.MarkdownParser
+  alias HonGraffitiPhoenix.Parsers.MarkdownParser
 
 
   @quote "^rBold ^gWow ^*Nein"
@@ -9,7 +9,8 @@ defmodule HonGraffitiPhoenix.MarkdownParserTest do
 
 
   test "parse returns a list" do
-    assert is_list(MarkdownParser.parse(@no_markdown))
+    parsed_markdown = MarkdownParser.parse(@no_markdown)
+    assert is_list(parsed_markdown)
   end
 
   test "parsing an empty quote returns an empty list" do
