@@ -1,4 +1,4 @@
 defmodule HonGraffitiPhoenix.QuoteView do
   use HonGraffitiPhoenix.Web, :view
-  alias HonGraffitiPhoenix.MarkdownParser
+  alias HonGraffitiPhoenix.Parsers.MarkdownParser
 end
