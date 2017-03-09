@@ -10,7 +10,7 @@
     <strong>Parsed</strong>
     <table class="table">
       <tbody>
-      <%= for style <- MarkdownParser.parse(@quote.raw) do %>
+      <%= for style <- MarkupParser.parse(@quote.raw) do %>
         <tr>
           <td><%= Map.fetch!(style, :color) %></td>
           <td><%= Map.fetch!(style, :body) %></td>

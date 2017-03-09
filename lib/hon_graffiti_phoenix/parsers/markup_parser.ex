@@ -1,4 +1,4 @@
-defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
+defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   alias HonGraffitiPhoenix.Parsers.DecoratedString
 
   @color_map %{
