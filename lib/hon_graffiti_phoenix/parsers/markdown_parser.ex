@@ -4,13 +4,12 @@ defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
   @moduledoc """
   Parses strings using standard HoN style markup.
   """
-
   @type meta_string :: %DecoratedString{color: String.t, body: String.t}
 
   # This captures(named style) on a caret followed by EITHER
   # one of the characters, or 3 digits
-  @hon_markup_capture ~r/\^((?<style>(\d{3})|[wrbymnpkotvg*]))/i
-  @hon_markup_splitter ~r/\^.*?(?=\^)/
+  @capture_style_separately ~r/\^(?<color>\d{3}|[wrbymnpkotvg*])(?<body>.*)/i
+  @caret_regex ~r/\^.*?(?=\^)/
 
 #  Public functions
   @spec parse :: []
@@ -19,14 +18,12 @@ defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
   @spec parse(String.t) :: [DecoratedString]
   def parse(quote) when quote == nil, do: []
   def parse(quote) do
-    separate_styles = split_on_markdown(quote)
-    Enum.reduce(separate_styles, [],
-      fn(string, acc) -> [parse_segment(string) | acc] end)
+    quote
+    |> String.split(@caret_regex, trim: true, include_captures: true)
+    |> Enum.map(fn segment -> parse_segment(segment) end)
   end
 
 # Private functions
-# Splits at every caret, and includes the caret.
-# returns a list of strings with a single markdown style in them
 
   @doc """
   Separates a String into it's markup and body.
@@ -34,26 +31,13 @@ defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
   """
   @spec parse_segment(String.t) :: meta_string
   def parse_segment(string) do
-    color = string |> get_markdown |> parse_markdown_code
-    body = string |> get_without_markdown |> String.trim
-    %DecoratedString{color: color, body: body}
-  end
-
-  @spec split_on_markdown(String.t) :: [String.t]
-  def split_on_markdown(string) do
-    Regex.split(@hon_markup_splitter,
-      string,
-      trim: true,
-      include_captures: true)
-  end
-
-  defp get_markdown(string) do
-    style_map = Regex.named_captures(@hon_markup_capture, string)
-    if style_map != nil, do: style_map["style"], else: ""
-  end
-
-  defp get_without_markdown(string) do
-    Regex.replace(@hon_markup_capture, string, "")
+    IO.puts "trying quote: #{string}"
+    map = Regex.named_captures(@capture_style_separately, string)
+    if map != nil do
+     %DecoratedString{body: map["body"], color: parse_markdown_code(map["color"])}
+   else
+     %DecoratedString{body: string, color: ""}
+   end
   end
 
 # Interpretting the markdown codes
