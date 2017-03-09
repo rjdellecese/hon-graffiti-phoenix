@@ -38,19 +38,19 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   def parse_segment(string) do
     map = Regex.named_captures(@capture_style_separately, string)
     if map != nil do
-     %DecoratedString{body: map["body"], color: parse_markdown_code(map["color"])}
+     %DecoratedString{body: map["body"], color: parse_markup_code(map["color"])}
    else
      %DecoratedString{body: string, color: ""}
    end
   end
 
-# Interpretting the markdown codes
-  @spec parse_markdown_code(String.t) :: String.t
-  def parse_markdown_code(markdown_code) do
-    case String.length(markdown_code) do
-      x when x == 1 -> Map.get(@color_map, markdown_code, "black")
-      x when x > 1  -> Enum.join(["rgb(", get_color_by_rgb(markdown_code), ")"])
-      _             -> markdown_code
+# Interpretting the markup codes
+  @spec parse_markup_code(String.t) :: String.t
+  def parse_markup_code(markup_code) do
+    case String.length(markup_code) do
+      x when x == 1 -> Map.get(@color_map, markup_code, "black")
+      x when x > 1  -> Enum.join(["rgb(", get_color_by_rgb(markup_code), ")"])
+      _             -> markup_code
     end
   end
 
