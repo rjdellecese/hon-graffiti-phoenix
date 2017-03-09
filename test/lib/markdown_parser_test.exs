@@ -28,10 +28,10 @@ defmodule HonGraffitiPhoenix.MarkupParserTest do
   end
 
   test "it can parse 3 digit codes or single characters" do
-    assert MarkupParser.parse_markdown_code("000") == "rgb(0,0,0)"
-    assert MarkupParser.parse_markdown_code("123") == "rgb(28,56,84)"
-    assert MarkupParser.parse_markdown_code("r") == "red"
-    assert MarkupParser.parse_markdown_code("*") == "white"
+    assert MarkupParser.parse_markup_code("000") == "rgb(0,0,0)"
+    assert MarkupParser.parse_markup_code("123") == "rgb(28,56,84)"
+    assert MarkupParser.parse_markup_code("r") == "red"
+    assert MarkupParser.parse_markup_code("*") == "white"
   end
 
 end
