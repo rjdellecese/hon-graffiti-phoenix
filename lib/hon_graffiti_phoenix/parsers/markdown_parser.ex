@@ -1,6 +1,13 @@
 defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
   alias HonGraffitiPhoenix.Parsers.DecoratedString
 
+  @color_map %{
+    "w" => "white", "*" => "white", "r" => "red",
+    "b" => "blue", "y" => "yellow", "m" => "magenta",
+    "n" => "brown", "p" => "purple", "o" => "orange",
+    "t" => "teal", "v" => "grey", "g" => "green",
+    "k" => "black", "" => "black"}
+
   @moduledoc """
   Parses strings using standard HoN style markup.
   """
@@ -23,15 +30,12 @@ defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
     |> Enum.map(fn segment -> parse_segment(segment) end)
   end
 
-# Private functions
-
   @doc """
   Separates a String into it's markup and body.
   If no markup is found, a default is given.
   """
   @spec parse_segment(String.t) :: meta_string
   def parse_segment(string) do
-    IO.puts "trying quote: #{string}"
     map = Regex.named_captures(@capture_style_separately, string)
     if map != nil do
      %DecoratedString{body: map["body"], color: parse_markdown_code(map["color"])}
@@ -41,36 +45,20 @@ defmodule HonGraffitiPhoenix.Parsers.MarkdownParser do
   end
 
 # Interpretting the markdown codes
-  defp parse_markdown_code(markdown_code) do
+  @spec parse_markdown_code(String.t) :: String.t
+  def parse_markdown_code(markdown_code) do
     case String.length(markdown_code) do
-      x when x == 1 -> get_color_by_code(markdown_code)
-      x when x > 1  -> get_color_by_rgb(markdown_code)
+      x when x == 1 -> Map.get(@color_map, markdown_code, "black")
+      x when x > 1  -> Enum.join(["rgb(", get_color_by_rgb(markdown_code), ")"])
       _             -> markdown_code
     end
   end
 
   defp get_color_by_rgb(rgb_string) do
-    "rgb(#{rgb_string})"
-  end
-
-  @lint false
-  defp get_color_by_code(color_code) do
-    case String.downcase(color_code) do
-      "w" -> "white"
-      "*" -> "white"
-      "r" -> "red"
-      "b" -> "blue"
-      "y" -> "yellow"
-      "m" -> "magenta"
-      "n" -> "brown"
-      "p" -> "purple"
-      "o" -> "orange"
-      "t" -> "teal"
-      "v" -> "grey"
-      "g" -> "green"
-      "k" -> "black"
-      ""  -> "black"
-    end
+    rgb_string
+    |> String.graphemes
+    |> Enum.map(&String.to_integer(&1) * 28)
+    |> Enum.join(",")
   end
 
 end

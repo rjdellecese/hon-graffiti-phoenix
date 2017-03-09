@@ -23,9 +23,15 @@ defmodule HonGraffitiPhoenix.MarkdownParserTest do
 
   test "broken markdown won't be parsed into a color" do
     markdown_data = MarkdownParser.parse(@broken_markdown)
-    IO.inspect markdown_data
     color_array = Enum.reduce(markdown_data, [], fn(color_struct, acc) -> [Map.fetch!(color_struct, :color) | acc] end)
     assert Enum.all?(color_array, fn(x) -> x == "" end)
+  end
+
+  test "it can parse 3 digit codes or single characters" do
+    assert MarkdownParser.parse_markdown_code("000") == "rgb(0,0,0)"
+    assert MarkdownParser.parse_markdown_code("123") == "rgb(28,56,84)"
+    assert MarkdownParser.parse_markdown_code("r") == "red"
+    assert MarkdownParser.parse_markdown_code("*") == "white"
   end
 
 end
