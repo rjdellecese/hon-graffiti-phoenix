@@ -6,7 +6,7 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
     "b" => "blue", "y" => "yellow", "m" => "magenta",
     "n" => "brown", "p" => "purple", "o" => "orange",
     "t" => "teal", "v" => "grey", "g" => "green",
-    "k" => "black", "" => "black"}
+    "k" => "black"}
 
   @moduledoc """
   Parses strings using standard HoN style markup.
@@ -22,34 +22,35 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   @spec parse :: []
   def parse, do: []
 
+  @doc """
+  Separates a String into a list of Decorated string structs
+  Splits on '^' the HoN markup indicator
+  If no markup is found, a default is given.
+  """
   @spec parse(String.t) :: [DecoratedString]
   def parse(quote) when quote == nil, do: []
   def parse(quote) do
     quote
     |> String.split(@caret_regex, trim: true, include_captures: true)
-    |> Enum.map(fn segment -> parse_segment(segment) end)
+    |> Enum.map(&parse_segment/1)
   end
 
-  @doc """
-  Separates a String into it's markup and body.
-  If no markup is found, a default is given.
-  """
   @spec parse_segment(String.t) :: meta_string
-  def parse_segment(string) do
+  defp parse_segment(string) do
     map = Regex.named_captures(@capture_style_separately, string)
     if map != nil do
      %DecoratedString{body: map["body"], color: parse_markup_code(map["color"])}
    else
-     %DecoratedString{body: string, color: ""}
+     %DecoratedString{body: string}
    end
   end
 
 # Interpretting the markup codes
   @spec parse_markup_code(String.t) :: String.t
-  def parse_markup_code(markup_code) do
+  defp parse_markup_code(markup_code) do
     case String.length(markup_code) do
-      x when x == 1 -> Map.get(@color_map, markup_code, "black")
-      x when x > 1  -> Enum.join(["rgb(", get_color_by_rgb(markup_code), ")"])
+      x when x == 1 -> Map.get(@color_map, markup_code)
+      x when x > 1  -> "rgb(#{get_color_by_rgb(markup_code)})"
       _             -> markup_code
     end
   end

@@ -4,5 +4,5 @@ defmodule HonGraffitiPhoenix.Parsers.DecoratedString do
   """
 
   @enforce_keys [:body]
-  defstruct [:body, color: "black"]
+  defstruct [:body, color: "white"]
 end
