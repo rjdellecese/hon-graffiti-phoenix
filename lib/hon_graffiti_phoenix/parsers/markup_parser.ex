@@ -55,12 +55,14 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
     end
   end
 
+  defp wrap_in_rgb_string(another_string), do: "rgb(#{another_string})"
+
   defp get_color_by_rgb(rgb_string) do
     rgb_string
     |> String.graphemes
     |> Enum.map(&String.to_integer(&1) * 28)
     |> Enum.join(",")
-    |> (&("rgb(" <> &1 <> ")")).()
+    |> wrap_in_rgb_string
   end
 
 end
