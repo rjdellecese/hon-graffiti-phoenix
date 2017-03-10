@@ -44,7 +44,52 @@ defmodule HonGraffitiPhoenix.QuoteControllerTest do
 
     assert json_response(conn, 422) ==
       render_changeset_json("error.json", changeset: invalid_quote_changeset)
-    refute Repo.get_by(Quote, raw: params_for(:quote).raw)
+    refute Repo.get_by(Quote, raw: params_for(:invalid_quote).raw)
+  end
+
+  test "#update renders the updated quote and persists a valid quote" do
+    conn = build_conn()
+    original_quote_attrs = %{raw: "^gOriginal quote"}
+    updated_quote_attrs = %{raw: "^yUpdated quote"}
+    original_quote = insert(:quote, original_quote_attrs)
+
+    conn = patch(
+      conn,
+      quote_path(conn, :update, original_quote),
+      quote: params_for(:quote, updated_quote_attrs)
+    )
+
+    updated_quote = Repo.get_by(Quote, raw: updated_quote_attrs.raw)
+    assert json_response(conn, 200) ==
+      render_json("show.json", quote: updated_quote)
+    refute Repo.get_by(Quote, original_quote_attrs)
+  end
+
+  test "#update renders errors and does not persist an invalid quote" do
+    conn = build_conn()
+    valid_quote = insert(:quote)
+    invalid_quote_changeset =
+      Quote.changeset(%Quote{}, params_for(:invalid_quote))
+
+    conn = patch(
+      conn,
+      quote_path(conn, :update, valid_quote),
+      quote: params_for(:invalid_quote)
+    )
+
+    assert json_response(conn, 422) ==
+      render_changeset_json("error.json", changeset: invalid_quote_changeset)
+    refute Repo.get_by(Quote, raw: params_for(:invalid_quote).raw)
+  end
+
+  test "#delete deletes a quote" do
+    conn = build_conn()
+    quote = insert(:quote)
+
+    conn = delete conn, quote_path(conn, :delete, quote)
+
+    assert response(conn, 204)
+    refute Repo.get(Quote, quote.id)
   end
 
   defp render_json(template, assigns) do

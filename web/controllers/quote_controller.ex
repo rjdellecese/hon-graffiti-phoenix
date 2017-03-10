@@ -33,4 +33,30 @@ defmodule HonGraffitiPhoenix.QuoteController do
            )
     end
   end
+
+  def update(conn, %{"id" => id, "quote" => quote_params}) do
+    quote = Repo.get!(Quote, id)
+    changeset = Quote.changeset(quote, quote_params)
+
+    case Repo.update(changeset) do
+      {:ok, quote} ->
+        render(conn, "show.json", quote: quote)
+      {:error, quote} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(
+             HonGraffitiPhoenix.ChangesetView,
+             "error.json",
+             changeset: changeset
+           )
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    quote = Repo.get!(Quote, id)
+
+    Repo.delete!(quote)
+
+    send_resp(conn, :no_content, "")
+  end
 end
