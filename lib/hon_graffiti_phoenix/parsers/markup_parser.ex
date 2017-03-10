@@ -50,7 +50,7 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   defp parse_markup_code(markup_code) do
     case String.length(markup_code) do
       x when x == 1 -> Map.get(@color_map, markup_code)
-      x when x > 1  -> "rgb(#{get_color_by_rgb(markup_code)})"
+      x when x > 1  -> get_color_by_rgb(markup_code)
       _             -> markup_code
     end
   end
@@ -60,6 +60,7 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
     |> String.graphemes
     |> Enum.map(&String.to_integer(&1) * 28)
     |> Enum.join(",")
+    |> (&("rgb(" <> &1 <> ")")).()
   end
 
 end
