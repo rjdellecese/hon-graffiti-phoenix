@@ -1,6 +1,8 @@
 defmodule HonGraffitiPhoenix.QuoteView do
   use HonGraffitiPhoenix.Web, :view
 
+  alias HonGraffitiPhoenix.Parsers.MarkupParser
+
   def render("index.json", %{quotes: quotes}) do
     %{quotes: Enum.map(quotes, &quote_json/1)}
   end
