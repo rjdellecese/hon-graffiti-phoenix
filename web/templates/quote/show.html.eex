@@ -5,6 +5,20 @@
   <li>
     <strong>Raw:</strong>
     <%= @quote.raw %>
+    <br>
+
+    <strong>Parsed</strong>
+    <table class="table">
+      <tbody>
+      <%= for style <- MarkupParser.parse(@quote.raw) do %>
+        <tr>
+          <td><%= Map.fetch!(style, :color) %></td>
+          <td><%= Map.fetch!(style, :body) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
   </li>
 
 </ul>
