@@ -6,7 +6,7 @@ defmodule HonGraffitiPhoenix.MarkupParserTest do
   @quote "^rBold ^gWow ^*Nein"
   @no_markdown "thisIsSoFakn' BORING"
   @broken_markdown "this^Qmakes no ^09s sense!!"
-  @invalid_markup_code "^j doesn't coorespond to a code"
+  @invalid_markup_code "^j doesn't correspond to a code"
   @caret_not_first "this is a ^rrandom string"
 
 
