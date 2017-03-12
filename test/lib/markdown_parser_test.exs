@@ -8,6 +8,7 @@ defmodule HonGraffitiPhoenix.MarkupParserTest do
   @broken_markdown "this^Qmakes no ^09s sense!!"
   @invalid_markup_code "^j doesn't correspond to a code"
   @caret_not_first "this is a ^rrandom string"
+  @multiple_carets "We shouldn't freak over ^^^^^too many carets"
 
 
   test "it returns the original string if there is no style" do
@@ -47,6 +48,14 @@ defmodule HonGraffitiPhoenix.MarkupParserTest do
     assert hd(MarkupParser.parse("^123")).color == "rgb(28,56,84)"
     assert hd(MarkupParser.parse("^r")).color == "red"
     assert hd(MarkupParser.parse("^*")).color == "white"
+  end
+
+  test "it can handle multiple carets" do
+    parsed = MarkupParser.parse(@multiple_carets)
+    assert length(parsed) == 2
+    assert hd(parsed).body == "We shouldn't freak over ^^^^"
+    assert hd(parsed).color == "white"
+    assert List.last(parsed).color == "teal"
   end
 
 end
