@@ -17,3 +17,8 @@ config :hon_graffiti_phoenix, HonGraffitiPhoenix.Repo,
   database: "hon_graffiti_phoenix_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# HoN Api info
+config :hon_graffiti_phoenix, HonGraffitiPhoenix.HonApi,
+  token: System.get_env("HON_API_TOKEN"),
+  api_root: "api.heroesofnewerth.com"

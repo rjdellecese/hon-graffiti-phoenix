@@ -20,7 +20,7 @@ defmodule HonGraffitiPhoenix.Mixfile do
   def application do
     [mod: {HonGraffitiPhoenix, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,8 @@ defmodule HonGraffitiPhoenix.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:credo, "~> 0.5", only: [:dev, :test]},
-     {:dialyxir, "~> 0.3.5", only: [:dev]}]
+     {:dialyxir, "~> 0.3.5", only: [:dev]},
+     {:httpoison, "~> 0.10.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
