@@ -9,11 +9,13 @@ defmodule HonGraffitiPhoenix.QuoteController do
     render(conn, "index.json", quotes: quotes)
   end
 
+  @lint {Credo.Check.Readability.Specs, false}
   def show(conn, %{"id" => id}) do
     quote = Repo.get!(Quote, id)
     render(conn, "show.json", quote: quote)
   end
 
+  @lint {Credo.Check.Readability.Specs, false}
   def create(conn, %{"quote" => quote_params}) do
     changeset = Quote.changeset(%Quote{}, quote_params)
 
@@ -34,6 +36,7 @@ defmodule HonGraffitiPhoenix.QuoteController do
     end
   end
 
+  @lint {Credo.Check.Readability.Specs, false}
   def update(conn, %{"id" => id, "quote" => quote_params}) do
     quote = Repo.get!(Quote, id)
     changeset = Quote.changeset(quote, quote_params)
@@ -52,6 +55,7 @@ defmodule HonGraffitiPhoenix.QuoteController do
     end
   end
 
+  @lint {Credo.Check.Readability.Specs, false}
   def delete(conn, %{"id" => id}) do
     quote = Repo.get!(Quote, id)
 
