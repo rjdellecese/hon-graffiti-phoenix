@@ -16,7 +16,7 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   # This captures(named style) on a caret followed by EITHER
   # one of the characters, or 3 digits
   @capture_style_separately ~r/\^(?<color>\d{3}|[wrbymnpkotvg*])(?<body>.*)/i
-  @caret_regex ~r/\^[^\^]*/
+  @caret_regex ~r/\^[^\^]+/
 
 #  Public functions
   @spec parse :: []
@@ -28,9 +28,9 @@ defmodule HonGraffitiPhoenix.Parsers.MarkupParser do
   If no markup is found, a default is given.
   """
   @spec parse(String.t) :: [DecoratedString]
-  def parse(quote) when quote == nil, do: []
-  def parse(quote) do
-    quote
+  def parse(hon_quote) when hon_quote == nil, do: []
+  def parse(hon_quote) do
+    hon_quote
     |> String.split(@caret_regex, trim: true, include_captures: true)
     |> Enum.map(&parse_segment/1)
   end
