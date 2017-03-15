@@ -44,7 +44,7 @@ defmodule HonGraffitiPhoenix.QuoteController do
     case Repo.update(changeset) do
       {:ok, quote} ->
         render(conn, "show.json", quote: quote)
-      {:error, quote} ->
+      {:error, _quote} ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(
