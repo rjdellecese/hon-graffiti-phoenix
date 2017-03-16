@@ -31,16 +31,20 @@ defmodule HonGraffitiPhoenix.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-     {:credo, "~> 0.5", only: [:dev, :test]},
-     {:dialyxir, "~> 0.3.5", only: [:dev]}]
+    [
+      {:cowboy, "~> 1.0"},
+      {:credo, "~> 0.5", only: [:dev, :test]},
+      {:dialyxir, "~> 0.3.5", only: [:dev]},
+      {:ex_machina, "~> 1.0", only: [:test]},
+      {:gettext, "~> 0.11"},
+      {:phoenix, "~> 1.2.1"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:poison, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

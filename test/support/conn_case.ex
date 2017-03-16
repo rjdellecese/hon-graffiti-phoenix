@@ -26,6 +26,7 @@ defmodule HonGraffitiPhoenix.ConnCase do
       import Ecto.Query
 
       import HonGraffitiPhoenix.Router.Helpers
+      import HonGraffitiPhoenix.Factory
 
       # The default endpoint for testing
       @endpoint HonGraffitiPhoenix.Endpoint
