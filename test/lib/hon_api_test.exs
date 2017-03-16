@@ -1,10 +1,10 @@
-defmodule HonGraffitiPhoenix.RequestTest do
+defmodule HonGraffitiPhoenix.HonApiTest do
   use HonGraffitiPhoenix.ConnCase
   alias HonGraffitiPhoenix.Requests.HonApi
 
 
   @tag :external
-  test "it can fail to make requests" do
+  test "it can report a request failure" do
     nickname = "break Stuff%/"
 
     {:error, results} = HonApi.get_by_nickname(nickname)
@@ -13,7 +13,7 @@ defmodule HonGraffitiPhoenix.RequestTest do
   end
 
   @tag :external
-  test "it can verify real accounts" do
+  test "it can report a request success" do
     nickname = "shamshirz"
 
     {:ok, results} = HonApi.get_by_nickname(nickname)
@@ -22,22 +22,12 @@ defmodule HonGraffitiPhoenix.RequestTest do
   end
 
   @tag :external
-  test "it can verify fake accounts don't exist" do
+  test "it can return a parsed successful response body" do
     nickname = "shamshirzThisNameIsTooLong"
 
     {:ok, results} = HonApi.get_by_nickname(nickname)
 
-    assert Map.fetch!(results, "account_id") == 0
+    assert Map.has_key?(results, "account_id")
   end
-
-  @tag :external
-  test "it has a convenience method to check account existeance" do
-    nickname = "shamshirz"
-
-    results = HonApi.account_exists?(nickname)
-
-    assert results
-  end
-
 
 end
