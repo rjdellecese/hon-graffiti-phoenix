@@ -59,10 +59,10 @@ defmodule HonGraffitiPhoenix.QuoteControllerTest do
       quote: params_for(:quote, updated_quote_attrs)
     )
 
-    updated_quote = Repo.get_by(Quote, raw: updated_quote_attrs.raw)
+    updated_quote = Repo.get(Quote, original_quote.id)
     assert json_response(conn, 200) ==
       render_json("show.json", quote: updated_quote)
-    refute Repo.get_by(Quote, original_quote_attrs)
+    assert updated_quote.raw == updated_quote_attrs.raw
   end
 
   test "#update renders errors and does not persist an invalid quote",
@@ -79,7 +79,8 @@ defmodule HonGraffitiPhoenix.QuoteControllerTest do
 
     assert json_response(conn, 422) ==
       render_changeset_json("error.json", changeset: invalid_quote_changeset)
-    refute Repo.get_by(Quote, raw: params_for(:invalid_quote).raw)
+    valid_quote = Repo.get(Quote, valid_quote.id)
+    refute valid_quote.raw == params_for(:invalid_quote).raw
   end
 
   test "#delete deletes a quote", %{conn: conn} do
