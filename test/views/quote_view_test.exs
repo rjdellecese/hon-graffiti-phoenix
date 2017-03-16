@@ -9,6 +9,7 @@ defmodule HonGraffitiPhoenix.QuoteViewTest do
     rendered_quote = QuoteView.quote_json(quote)
 
     assert rendered_quote == %{
+      id: quote.id,
       raw: quote.raw,
       inserted_at: quote.inserted_at,
       updated_at: quote.updated_at
@@ -31,5 +32,13 @@ defmodule HonGraffitiPhoenix.QuoteViewTest do
     rendered_quote = QuoteView.render("show.json", %{quote: quote})
 
     assert rendered_quote == %{quote: QuoteView.quote_json(quote)}
+  end
+
+  test "views return the quote id" do
+    quote = insert(:quote)
+
+    rendered_quote = QuoteView.render("show.json", %{quote: quote})
+
+    assert get_in(rendered_quote, [:quote, :id]) == quote.id
   end
 end
