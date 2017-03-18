@@ -9,6 +9,7 @@ defmodule HonGraffitiPhoenix.QuoteViewTest do
     rendered_quote = QuoteView.quote_json(quote)
 
     assert rendered_quote == %{
+      id: quote.id,
       raw: quote.raw,
       inserted_at: quote.inserted_at,
       updated_at: quote.updated_at

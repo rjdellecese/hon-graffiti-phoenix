@@ -14,9 +14,10 @@ defmodule HonGraffitiPhoenix.QuoteView do
   end
 
   @spec quote_json(%Quote{}) ::
-    %{raw: String.t, inserted_at: String.t, updated_at: String.t}
+    %{id: integer, raw: String.t, inserted_at: String.t, updated_at: String.t}
   def quote_json(quote) do
     %{
+      id: quote.id,
       raw: quote.raw,
       inserted_at: quote.inserted_at,
       updated_at: quote.updated_at
