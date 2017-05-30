@@ -4,7 +4,7 @@ defmodule HonGraffitiPhoenix.Mixfile do
   def project do
     [app: :hon_graffiti_phoenix,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -33,7 +33,7 @@ defmodule HonGraffitiPhoenix.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.5", only: [:dev, :test]},
+      {:credo, "~> 0.8.0-rc7", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.5", only: [:dev]},
       {:ex_machina, "~> 1.0", only: [:test]},
       {:gettext, "~> 0.11"},
