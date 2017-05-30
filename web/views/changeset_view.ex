@@ -9,12 +9,12 @@ defmodule HonGraffitiPhoenix.ChangesetView do
   See `Ecto.Changeset.traverse_errors/2` and
   `HonGraffitiPhoenix.ErrorHelpers.translate_error/1` for more details.
   """
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def translate_errors(changeset) do
     Changeset.traverse_errors(changeset, &translate_error/1)
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def render("error.json", %{changeset: changeset}) do
     # When encoded, the changeset returns its errors
     # as a JSON object. So we just pass it forward.

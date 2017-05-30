@@ -13,7 +13,7 @@ defmodule HonGraffitiPhoenix.HonQuote do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:raw])

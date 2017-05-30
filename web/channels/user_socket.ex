@@ -19,7 +19,7 @@ defmodule HonGraffitiPhoenix.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def connect(_params, socket) do
     {:ok, socket}
   end
@@ -37,6 +37,6 @@ defmodule HonGraffitiPhoenix.UserSocket do
   #     )
   #
   # Returning `nil` makes this socket anonymous.
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def id(_socket), do: nil
 end
