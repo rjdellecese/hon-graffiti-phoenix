@@ -57,6 +57,6 @@ defmodule HonGraffitiPhoenix.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"],
-     "dplt": ["deps.get", "dialyzer.plt"]]
+     "dplt": ["deps.get", "dialyzer"]]
   end
 end
