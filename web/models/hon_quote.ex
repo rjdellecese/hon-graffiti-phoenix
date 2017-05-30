@@ -1,10 +1,10 @@
-defmodule HonGraffitiPhoenix.Quote do
+defmodule HonGraffitiPhoenix.HonQuote do
   @moduledoc """
   A quote is a single line of HoN markup. The :raw field is the raw HoN markup.
   """
   use HonGraffitiPhoenix.Web, :model
 
-  schema "quotes" do
+  schema "hon_quotes" do
     field :raw, :string
 
     timestamps()

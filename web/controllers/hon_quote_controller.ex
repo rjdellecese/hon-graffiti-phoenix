@@ -1,30 +1,30 @@
-defmodule HonGraffitiPhoenix.QuoteController do
+defmodule HonGraffitiPhoenix.HonQuoteController do
   use HonGraffitiPhoenix.Web, :controller
 
-  alias HonGraffitiPhoenix.Quote
+  alias HonGraffitiPhoenix.HonQuote
 
   @lint {Credo.Check.Readability.Specs, false}
   def index(conn, _params) do
-    quotes = Repo.all(Quote)
-    render(conn, "index.json", quotes: quotes)
+    hon_quotes = Repo.all(HonQuote)
+    render(conn, "index.json", hon_quotes: hon_quotes)
   end
 
   @lint {Credo.Check.Readability.Specs, false}
   def show(conn, %{"id" => id}) do
-    quote = Repo.get!(Quote, id)
-    render(conn, "show.json", quote: quote)
+    hon_quote = Repo.get!(HonQuote, id)
+    render(conn, "show.json", hon_quote: hon_quote)
   end
 
   @lint {Credo.Check.Readability.Specs, false}
-  def create(conn, %{"quote" => quote_params}) do
-    changeset = Quote.changeset(%Quote{}, quote_params)
+  def create(conn, %{"hon_quote" => hon_quote_params}) do
+    changeset = HonQuote.changeset(%HonQuote{}, hon_quote_params)
 
     case Repo.insert(changeset) do
-      {:ok, quote} ->
+      {:ok, hon_quote} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", quote_path(conn, :show, quote))
-        |> render("show.json", quote: quote)
+        |> put_resp_header("location", hon_quote_path(conn, :show, hon_quote))
+        |> render("show.json", hon_quote: hon_quote)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -37,14 +37,14 @@ defmodule HonGraffitiPhoenix.QuoteController do
   end
 
   @lint {Credo.Check.Readability.Specs, false}
-  def update(conn, %{"id" => id, "quote" => quote_params}) do
-    quote = Repo.get!(Quote, id)
-    changeset = Quote.changeset(quote, quote_params)
+  def update(conn, %{"id" => id, "hon_quote" => hon_quote_params}) do
+    hon_quote = Repo.get!(HonQuote, id)
+    changeset = HonQuote.changeset(hon_quote, hon_quote_params)
 
     case Repo.update(changeset) do
-      {:ok, quote} ->
-        render(conn, "show.json", quote: quote)
-      {:error, _quote} ->
+      {:ok, hon_quote} ->
+        render(conn, "show.json", hon_quote: hon_quote)
+      {:error, _hon_quote} ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(
@@ -57,9 +57,9 @@ defmodule HonGraffitiPhoenix.QuoteController do
 
   @lint {Credo.Check.Readability.Specs, false}
   def delete(conn, %{"id" => id}) do
-    quote = Repo.get!(Quote, id)
+    hon_quote = Repo.get!(HonQuote, id)
 
-    Repo.delete!(quote)
+    Repo.delete!(hon_quote)
 
     send_resp(conn, :no_content, "")
   end
