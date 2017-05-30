@@ -1,101 +1,110 @@
-defmodule HonGraffitiPhoenix.QuoteControllerTest do
+defmodule HonGraffitiPhoenix.HonQuoteControllerTest do
   use HonGraffitiPhoenix.ConnCase
 
-  alias HonGraffitiPhoenix.Quote
+  alias HonGraffitiPhoenix.HonQuote
 
   setup do
     %{conn: build_conn()}
   end
 
-  test "#index renders a list of quotes", %{conn: conn} do
-    quote = insert(:quote)
+  test "#index renders a list of hon_quotes", %{conn: conn} do
+    hon_quote = insert(:hon_quote)
 
-    conn = get conn, quote_path(conn, :index)
+    conn = get conn, hon_quote_path(conn, :index)
 
     assert json_response(conn, 200) ==
-      render_json("index.json", quotes: [quote])
+      render_json("index.json", hon_quotes: [hon_quote])
   end
 
-  test "#show renders a single quote", %{conn: conn} do
-    quote = insert(:quote)
+  test "#show renders a single hon_quote", %{conn: conn} do
+    hon_quote = insert(:hon_quote)
 
-    conn = get conn, quote_path(conn, :show, quote)
+    conn = get conn, hon_quote_path(conn, :show, hon_quote)
 
-    assert json_response(conn, 200) == render_json("show.json", quote: quote)
+    assert json_response(conn, 200) ==
+      render_json("show.json", hon_quote: hon_quote)
   end
 
-  test "#create renders and persists a valid quote", %{conn: conn} do
-    conn = post conn, quote_path(conn, :create), quote: params_for(:quote)
+  test "#create renders and persists a valid hon_quote", %{conn: conn} do
+    conn = post(
+      conn, hon_quote_path(conn, :create), hon_quote: params_for(:hon_quote)
+    )
 
-    quote = Repo.get_by(Quote, raw: params_for(:quote).raw)
-    assert json_response(conn, 201) == render_json("show.json", quote: quote)
+    hon_quote = Repo.get_by(HonQuote, raw: params_for(:hon_quote).raw)
+    assert json_response(conn, 201) ==
+      render_json("show.json", hon_quote: hon_quote)
   end
 
-  test "#create renders errors and does not persist an invalid quote",
+  test "#create renders errors and does not persist an invalid hon_quote",
        %{conn: conn} do
-    invalid_quote_changeset =
-      Quote.changeset(%Quote{}, params_for(:invalid_quote))
+    invalid_hon_quote_changeset =
+      HonQuote.changeset(%HonQuote{}, params_for(:invalid_hon_quote))
 
     conn = post(
       conn,
-      quote_path(conn, :create),
-      quote: params_for(:invalid_quote)
+      hon_quote_path(conn, :create),
+      hon_quote: params_for(:invalid_hon_quote)
     )
 
     assert json_response(conn, 422) ==
-      render_changeset_json("error.json", changeset: invalid_quote_changeset)
-    refute Repo.get_by(Quote, raw: params_for(:invalid_quote).raw)
+      render_changeset_json(
+        "error.json",
+        changeset: invalid_hon_quote_changeset
+      )
+    refute Repo.get_by(HonQuote, raw: params_for(:invalid_hon_quote).raw)
   end
 
-  test "#update renders the updated quote and persists a valid quote",
+  test "#update renders the updated hon_quote and persists a valid hon_quote",
        %{conn: conn} do
-    original_quote_attrs = %{raw: "^gOriginal quote"}
-    updated_quote_attrs = %{raw: "^yUpdated quote"}
-    original_quote = insert(:quote, original_quote_attrs)
+    original_hon_quote_attrs = %{raw: "^gOriginal hon_quote"}
+    updated_hon_quote_attrs = %{raw: "^yUpdated hon_quote"}
+    original_hon_quote = insert(:hon_quote, original_hon_quote_attrs)
 
     conn = patch(
       conn,
-      quote_path(conn, :update, original_quote),
-      quote: params_for(:quote, updated_quote_attrs)
+      hon_quote_path(conn, :update, original_hon_quote),
+      hon_quote: params_for(:hon_quote, updated_hon_quote_attrs)
     )
 
-    updated_quote = Repo.get(Quote, original_quote.id)
+    updated_hon_quote = Repo.get(HonQuote, original_hon_quote.id)
     assert json_response(conn, 200) ==
-      render_json("show.json", quote: updated_quote)
-    assert updated_quote.raw == updated_quote_attrs.raw
+      render_json("show.json", hon_quote: updated_hon_quote)
+    assert updated_hon_quote.raw == updated_hon_quote_attrs.raw
   end
 
-  test "#update renders errors and does not persist an invalid quote",
+  test "#update renders errors and does not persist an invalid hon_quote",
        %{conn: conn} do
-    valid_quote = insert(:quote)
-    invalid_quote_changeset =
-      Quote.changeset(%Quote{}, params_for(:invalid_quote))
+    valid_hon_quote = insert(:hon_quote)
+    invalid_hon_quote_changeset =
+      HonQuote.changeset(%HonQuote{}, params_for(:invalid_hon_quote))
 
     conn = patch(
       conn,
-      quote_path(conn, :update, valid_quote),
-      quote: params_for(:invalid_quote)
+      hon_quote_path(conn, :update, valid_hon_quote),
+      hon_quote: params_for(:invalid_hon_quote)
     )
 
     assert json_response(conn, 422) ==
-      render_changeset_json("error.json", changeset: invalid_quote_changeset)
-    valid_quote = Repo.get(Quote, valid_quote.id)
-    refute valid_quote.raw == params_for(:invalid_quote).raw
+      render_changeset_json(
+        "error.json", changeset: invalid_hon_quote_changeset
+      )
+    valid_hon_quote = Repo.get(HonQuote, valid_hon_quote.id)
+    refute valid_hon_quote.raw == params_for(:invalid_hon_quote).raw
   end
 
-  test "#delete deletes a quote", %{conn: conn} do
-    quote = insert(:quote)
+  test "#delete deletes a hon_quote", %{conn: conn} do
+    hon_quote = insert(:hon_quote)
 
-    conn = delete conn, quote_path(conn, :delete, quote)
+    conn = delete conn, hon_quote_path(conn, :delete, hon_quote)
 
     assert response(conn, 204)
-    refute Repo.get(Quote, quote.id)
+    refute Repo.get(HonQuote, hon_quote.id)
   end
 
   defp render_json(template, assigns) do
     assigns = Map.new(assigns)
 
-    HonGraffitiPhoenix.QuoteView.render(template, assigns)
+    HonGraffitiPhoenix.HonQuoteView.render(template, assigns)
     |> Poison.encode!
     |> Poison.decode!
   end

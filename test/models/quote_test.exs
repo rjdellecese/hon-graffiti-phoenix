@@ -1,7 +1,7 @@
-defmodule HonGraffitiPhoenix.QuoteTest do
+defmodule HonGraffitiPhoenix.HonQuoteTest do
   use HonGraffitiPhoenix.ModelCase
 
-  alias HonGraffitiPhoenix.Quote
+  alias HonGraffitiPhoenix.HonQuote
 
   @a_long_string List.duplicate("Wahooo", 30) |> List.to_string
 
@@ -11,22 +11,22 @@ defmodule HonGraffitiPhoenix.QuoteTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = Quote.changeset(%Quote{}, @valid_attrs)
+    changeset = HonQuote.changeset(%HonQuote{}, @valid_attrs)
     assert changeset.valid?
   end
 
   test "validate requires at least a minumum length" do
-    changeset = Quote.changeset(%Quote{}, @short_attrs)
+    changeset = HonQuote.changeset(%HonQuote{}, @short_attrs)
     refute changeset.valid?
   end
 
   test "validate requires less than a maximum length" do
-    changeset = Quote.changeset(%Quote{}, @long_attrs)
+    changeset = HonQuote.changeset(%HonQuote{}, @long_attrs)
     refute changeset.valid?
   end
 
   test "changeset with invalid attributes" do
-    changeset = Quote.changeset(%Quote{}, @invalid_attrs)
+    changeset = HonQuote.changeset(%HonQuote{}, @invalid_attrs)
     refute changeset.valid?
   end
 end
