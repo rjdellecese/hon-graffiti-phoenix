@@ -34,8 +34,8 @@ defmodule HonGraffitiPhoenix.Mixfile do
     [
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.8.0-rc7", only: [:dev, :test]},
-      {:dialyxir, "~> 0.3.5", only: [:dev]},
-      {:ex_machina, "~> 1.0", only: [:test]},
+      {:dialyxir, "~> 0.5.0", only: [:dev]},
+      {:ex_machina, "~> 2.0", only: [:test]},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.2.1"},
       {:phoenix_ecto, "~> 3.0"},
