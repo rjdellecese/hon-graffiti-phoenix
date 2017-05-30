@@ -2,6 +2,6 @@ language: elixir
 elixir:
   - 1.4.2
 script:
-  - mix credo
+  - mix credo --strict
   - mix test
   - mix do dialyzer.plt, dialyzer
