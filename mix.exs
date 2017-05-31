@@ -4,7 +4,7 @@ defmodule HonGraffitiPhoenix.Mixfile do
   def project do
     [app: :hon_graffiti_phoenix,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -33,9 +33,9 @@ defmodule HonGraffitiPhoenix.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
-      {:credo, "~> 0.5", only: [:dev, :test]},
-      {:dialyxir, "~> 0.3.5", only: [:dev]},
-      {:ex_machina, "~> 1.0", only: [:test]},
+      {:credo, "~> 0.8.0-rc7", only: [:dev, :test]},
+      {:dialyxir, "~> 0.5.0", only: [:dev]},
+      {:ex_machina, "~> 2.0", only: [:test]},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.2.1"},
       {:phoenix_ecto, "~> 3.0"},
@@ -57,6 +57,6 @@ defmodule HonGraffitiPhoenix.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"],
-     "dplt": ["deps.get", "dialyzer.plt"]]
+     "dplt": ["deps.get", "dialyzer"]]
   end
 end

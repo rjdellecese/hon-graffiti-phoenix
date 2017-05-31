@@ -3,19 +3,19 @@ defmodule HonGraffitiPhoenix.HonQuoteController do
 
   alias HonGraffitiPhoenix.HonQuote
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def index(conn, _params) do
     hon_quotes = Repo.all(HonQuote)
     render(conn, "index.json", hon_quotes: hon_quotes)
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def show(conn, %{"id" => id}) do
     hon_quote = Repo.get!(HonQuote, id)
     render(conn, "show.json", hon_quote: hon_quote)
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def create(conn, %{"hon_quote" => hon_quote_params}) do
     changeset = HonQuote.changeset(%HonQuote{}, hon_quote_params)
 
@@ -36,7 +36,7 @@ defmodule HonGraffitiPhoenix.HonQuoteController do
     end
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def update(conn, %{"id" => id, "hon_quote" => hon_quote_params}) do
     hon_quote = Repo.get!(HonQuote, id)
     changeset = HonQuote.changeset(hon_quote, hon_quote_params)
@@ -55,7 +55,7 @@ defmodule HonGraffitiPhoenix.HonQuoteController do
     end
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def delete(conn, %{"id" => id}) do
     hon_quote = Repo.get!(HonQuote, id)
 

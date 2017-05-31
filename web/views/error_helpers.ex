@@ -8,7 +8,7 @@ defmodule HonGraffitiPhoenix.ErrorHelpers do
   @doc """
   Generates tag for inlined form input errors.
   """
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def error_tag(form, field) do
     if error = form.errors[field] do
       content_tag :span, translate_error(error), class: "help-block"
@@ -18,7 +18,7 @@ defmodule HonGraffitiPhoenix.ErrorHelpers do
   @doc """
   Translates an error message using gettext.
   """
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def translate_error({msg, opts}) do
     # Because error messages were defined within Ecto, we must
     # call the Gettext module passing our Gettext backend. We

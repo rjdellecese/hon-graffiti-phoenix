@@ -3,12 +3,12 @@ defmodule HonGraffitiPhoenix.HonQuoteView do
 
   alias HonGraffitiPhoenix.HonQuote
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # cred:disable-for-next-line {Credo.Check.Readability.Specs
   def render("index.json", %{hon_quotes: hon_quotes}) do
     %{hon_quotes: Enum.map(hon_quotes, &hon_quote_json/1)}
   end
 
-  @lint {Credo.Check.Readability.Specs, false}
+  # credo:disable-for-next-line Credo.Check.Readability.Specs
   def render("show.json", %{hon_quote: hon_quote}) do
     %{hon_quote: hon_quote_json(hon_quote)}
   end
